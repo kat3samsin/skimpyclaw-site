@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SkimpyClaw — Personal AI Assistant</title>
-  <meta name="description" content="Lightweight personal AI assistant (~20k LOC). Runs locally. Telegram, Discord, scheduled tasks, and a web dashboard — all in one tiny service.">
+  <meta name="description" content="Lightweight personal AI assistant (~23k LOC). Runs locally. Telegram, Discord, scheduled tasks, coding agent teams, and a web dashboard — all in one tiny service.">
   <meta name="theme-color" content="#d33b36">
   <meta property="og:title" content="SkimpyClaw">
   <meta property="og:description" content="Lightweight personal AI assistant. Runs locally.">
@@ -14,469 +14,321 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👙</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #ffffff;
-      --bg-soft: #fffaf5;
-      --bg-alt: #f5ebe5;
-      --text-1: #0c0303;
-      --text-2: #5a4a40;
-      --text-3: #9a8a80;
-      --brand: #d33b36;
-      --brand-hover: #c65a24;
-      --brand-soft: rgba(219, 111, 57, 0.14);
-      --accent: #dfaa6d;
-      --border: rgba(23, 16, 11, 0.08);
-      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --font-heading: 'Playfair Display', Georgia, serif;
-      --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #1e1814;
-        --bg-soft: #161210;
-        --bg-alt: #2a2018;
-        --text-1: #fcf3f3;
-        --text-2: #d4ccc6;
-        --text-3: #948c86;
-        --brand: #f38646;
-        --brand-hover: #ff9a60;
-        --brand-soft: rgba(243, 134, 70, 0.16);
-        --accent: #dfaa6d;
-        --border: rgba(243, 236, 231, 0.08);
-      }
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--font-body);
-      background: var(--bg);
-      color: var(--text-1);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    ::selection {
-      background: var(--brand-soft);
-      color: var(--brand);
-    }
-
-    a { color: var(--brand); text-decoration: none; }
-    a:hover { color: var(--brand-hover); }
-
-    /* Nav */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      background: var(--bg-soft);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(12px);
-    }
-
-    .nav-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .nav-brand {
-      font-family: var(--font-heading);
-      font-weight: 700;
-      font-size: 1.25rem;
-      color: var(--text-1);
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-    }
-
-    .nav-links a {
-      color: var(--text-2);
-      font-weight: 500;
-      font-size: 0.9rem;
-    }
-
-    .nav-links a:hover { color: var(--brand); }
-
-    /* Hero */
-    .hero {
-      padding: 160px 24px 80px;
-      text-align: center;
-      background: var(--bg);
-    }
-
-    .hero-emoji {
-      font-size: 5rem;
-      line-height: 1.2;
-      margin-bottom: 16px;
-    }
-
-    .hero-title {
-      font-family: var(--font-heading);
-      font-weight: 800;
-      font-size: 3rem;
-      color: var(--text-1);
-      margin-bottom: 16px;
-      letter-spacing: -0.02em;
-    }
-
-    .hero-tagline {
-      font-size: 1.25rem;
-      color: var(--text-2);
-      max-width: 640px;
-      margin: 0 auto 40px;
-      line-height: 1.6;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 28px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: all 0.2s ease;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-brand {
-      background: var(--brand);
-      color: #fff;
-    }
-
-    .btn-brand:hover {
-      background: var(--brand-hover);
-      color: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(211, 59, 54, 0.3);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--brand);
-      border: 1px solid var(--brand);
-    }
-
-    .btn-outline:hover {
-      background: var(--brand);
-      color: #fff;
-      transform: translateY(-2px);
-    }
-
-    /* Screenshot */
-    .screenshot-section {
-      background: linear-gradient(180deg, var(--bg) 0%, var(--bg) 60px, var(--bg-soft) 60px);
-      padding: 0 24px 80px;
-    }
-
-    .screenshot-container {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .screenshot-container img {
-      width: 100%;
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      box-shadow: 0 12px 48px rgba(23, 16, 11, 0.12);
-    }
-
-    /* Features */
-    .features {
-      background: var(--bg-soft);
-      padding: 80px 24px;
-    }
-
-    .features-header {
-      text-align: center;
-      margin-bottom: 56px;
-    }
-
-    .features-header h2 {
-      font-family: var(--font-heading);
-      font-weight: 700;
-      font-size: 2rem;
-      color: var(--text-1);
-      margin-bottom: 12px;
-    }
-
-    .features-header p {
-      color: var(--text-2);
-      font-size: 1.1rem;
-      max-width: 560px;
-      margin: 0 auto;
-    }
-
-    .features-grid {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .feature-card {
-      background: var(--bg);
-      border-radius: 20px;
-      padding: 28px 24px;
-      box-shadow: 0 2px 8px rgba(23, 16, 11, 0.06);
-      transition: all 0.3s ease;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(23, 16, 11, 0.1);
-    }
-
-    .feature-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px;
-      height: 48px;
-      background: var(--bg-alt);
-      border-radius: 14px;
-      margin-bottom: 16px;
-      color: var(--accent);
-    }
-
-    .feature-icon svg {
-      width: 22px;
-      height: 22px;
-      stroke: var(--accent);
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .feature-card h3 {
-      font-weight: 600;
-      font-size: 1.05rem;
-      color: var(--text-1);
-      margin-bottom: 8px;
-    }
-
-    .feature-card p {
-      color: var(--text-2);
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
-    /* Install */
-    .install {
-      background: var(--bg);
-      padding: 80px 24px;
-    }
-
-    .install-inner {
-      max-width: 700px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .install-inner h2 {
-      font-family: var(--font-heading);
-      font-weight: 700;
-      font-size: 2rem;
-      color: var(--text-1);
-      margin-bottom: 12px;
-    }
-
-    .install-inner > p {
-      color: var(--text-2);
-      margin-bottom: 32px;
-    }
-
-    .code-block {
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px 24px;
-      text-align: left;
-      position: relative;
-      margin-bottom: 16px;
-    }
-
-    .code-block code {
-      font-family: var(--font-mono);
-      font-size: 0.9rem;
-      color: var(--text-1);
-      line-height: 1.7;
-    }
-
-    .code-block .comment {
-      color: var(--text-3);
-    }
-
-    .code-block .cmd {
-      color: var(--brand);
-    }
-
-    /* Footer */
-    footer {
-      background: var(--bg-soft);
-      padding: 40px 24px;
-      text-align: center;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 32px;
-      justify-content: center;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      color: var(--text-2);
-      font-weight: 500;
-      font-size: 0.9rem;
-    }
-
-    .footer-links a:hover { color: var(--brand); }
-
-    .footer-copy {
-      color: var(--text-3);
-      font-size: 0.85rem;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .hero-title { font-size: 2rem; }
-      .hero-emoji { font-size: 3.5rem; }
-      .hero-tagline { font-size: 1.1rem; }
-      .features-grid { grid-template-columns: 1fr; }
-      .features-header h2, .install-inner h2 { font-size: 1.5rem; }
-      .nav-links { gap: 16px; }
-    }
-
-    @media (max-width: 480px) {
-      .hero-actions { flex-direction: column; align-items: center; }
-      .btn { width: 100%; max-width: 280px; justify-content: center; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+  <!-- Navigation -->
   <nav>
     <div class="nav-inner">
       <a href="/" class="nav-brand">👙🦞 SkimpyClaw</a>
       <div class="nav-links">
+        <a href="#auditability">Features</a>
+        <div class="nav-divider"></div>
         <a href="https://docs.skimpyclaw.xyz">Docs</a>
         <a href="https://github.com/kat3samsin/skimpyclaw">GitHub</a>
       </div>
     </div>
   </nav>
 
+  <!-- Hero -->
   <section class="hero">
-    <div class="hero-emoji">&#x1F459;&#x1F99E;</div>
-    <h1 class="hero-title">Lobster in a Bikini</h1>
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Open Source &middot; Self-Hosted
+    </div>
+    <h1 class="hero-title">
+      Your AI assistant,<br><span class="gradient">fully under your control.</span>
+    </h1>
     <p class="hero-tagline">
-      Lightweight personal AI assistant (~20k LOC). Runs locally. Telegram or Discord, scheduled tasks, coding agent teams, and a web dashboard — all in one tiny service.
+      Lightweight personal AI assistant (~23k LOC). Chat via Telegram or Discord, run coding agent teams, schedule jobs, approve risky commands — all from one tiny self-hosted service.
     </p>
     <div class="hero-actions">
-      <a href="https://docs.skimpyclaw.xyz/guide/" class="btn btn-brand">Get Started</a>
-      <a href="https://github.com/kat3samsin/skimpyclaw" class="btn btn-outline">View on GitHub</a>
+      <a href="https://docs.skimpyclaw.xyz/guide/" class="btn btn-brand">
+        Get Started
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="https://docs.skimpyclaw.xyz" class="btn btn-ghost">
+        View Docs
+      </a>
+      <a href="https://github.com/kat3samsin/skimpyclaw" class="btn btn-ghost">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+    <div class="hero-meta">
+      <span>~23k lines of TypeScript</span>
+      <span>Self-hosted</span>
+      <span>MIT License</span>
     </div>
   </section>
 
+  <!-- Dashboard Screenshot -->
   <section class="screenshot-section">
-    <div class="screenshot-container">
-      <img src="dashboard.png" alt="SkimpyClaw Dashboard" loading="lazy">
-    </div>
-  </section>
-
-  <section class="features">
-    <div class="features-header">
-      <h2>Everything you need, nothing you don't</h2>
-      <p>A single TypeScript service that handles chat, automation, coding, and monitoring.</p>
-    </div>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+    <div class="screenshot-container reveal">
+      <div class="screenshot-frame">
+        <div class="screenshot-topbar">
+          <span class="screenshot-dot"></span>
+          <span class="screenshot-dot"></span>
+          <span class="screenshot-dot"></span>
         </div>
-        <h3>Telegram or Discord</h3>
-        <p>Chat bot with persistent conversation history, voice message support, and inline commands.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        </div>
-        <h3>Skills-Enabled Agent</h3>
-        <p>Extensible skills system with trigger-based activation. File I/O, bash, browser automation, and MCP tools built in.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        </div>
-        <h3>Cron Scheduler</h3>
-        <p>Run agent prompts or shell scripts on a schedule. Morning digests, news roundups, and automated workflows.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <h3>Exec Approval</h3>
-        <p>Tier-based risk classification for bash commands. Risky commands require explicit approval via chat before running. Unattended contexts fast-deny automatically.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-        </div>
-        <h3>Web Dashboard</h3>
-        <p>Preact/Vite SPA for status, cron management, audit logs, memory browser, and live config editing.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </div>
-        <h3>Coding Agent Teams</h3>
-        <p>Spawn parallel coding agents (Claude, Codex, Kimi) that decompose tasks, write code, and run validation gates.</p>
+        <img src="images/dashboard.png" alt="SkimpyClaw Web Dashboard" loading="lazy">
       </div>
     </div>
   </section>
 
-  <section class="install">
-    <div class="install-inner">
-      <h2>Quick Start</h2>
-      <p>Install and run in under a minute.</p>
+  <!-- Feature 1: Full Auditability -->
+  <section class="feature-section" id="auditability">
+    <div class="container reveal">
+      <div class="feature-content">
+        <span class="feature-label green">Auditability</span>
+        <h2>Full auditability for every action</h2>
+        <p>
+          Every tool call, LLM request, approval decision, and cron execution is logged with timestamps, token counts, and cost data. Nothing happens in the dark.
+        </p>
+        <ul>
+          <li>JSONL-based audit traces for all agent interactions</li>
+          <li>Token counts and cost data per request</li>
+          <li>Searchable audit page with trigger badges and pagination</li>
+          <li>Optional Langfuse tracing for deeper observability</li>
+        </ul>
+        <a href="https://docs.skimpyclaw.xyz/guide/dashboard.html" class="feature-link">
+          Read the audit docs
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="feature-visual">
+        <div class="screenshot-card">
+          <div class="card-topbar">
+            <span class="card-dot"></span>
+            <span class="card-dot"></span>
+            <span class="card-dot"></span>
+          </div>
+          <img src="images/dashboard.png" alt="SkimpyClaw dashboard showing audit logs, tool calls, and cost tracking" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature 2: Coding Agent Teams -->
+  <section class="feature-section" id="coding-agents">
+    <div class="container reveal">
+      <div class="feature-content">
+        <span class="feature-label orange">Coding Agents</span>
+        <h2>Spawn parallel coding agent teams</h2>
+        <p>
+          Decompose tasks across multiple AI coding agents — Claude, Codex, Kimi — that work in parallel. Each agent writes code, runs tests, and reports back through structured validation gates.
+        </p>
+        <ul>
+          <li>Multi-model agent orchestration</li>
+          <li>Parallel task decomposition and execution</li>
+          <li>Built-in validation gates and test runners</li>
+          <li>Git branch isolation per agent</li>
+        </ul>
+        <a href="https://docs.skimpyclaw.xyz/guide/coding-agents.html" class="feature-link">
+          Learn about agent teams
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="feature-visual">
+        <div class="screenshot-card">
+          <div class="card-topbar">
+            <span class="card-dot"></span>
+            <span class="card-dot"></span>
+            <span class="card-dot"></span>
+          </div>
+          <img src="images/coding-agent.png" alt="SkimpyClaw coding agent dashboard screenshot showing parallel task orchestration and validation results" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature 3: Human Approvals -->
+  <section class="feature-section" id="approvals">
+    <div class="container reveal">
+      <div class="feature-content">
+        <span class="feature-label red">Security</span>
+        <h2>Human approvals for risky commands</h2>
+        <p>
+          Tier-based risk classification for every bash command. Low-risk commands run automatically. Dangerous ones require explicit human approval via Telegram or Discord before execution.
+        </p>
+        <ul>
+          <li>Three-tier risk classification (informational, approval-required, dangerous)</li>
+          <li>Approve or deny commands from Telegram or Discord</li>
+          <li>Configurable TTL — unanswered approvals expire automatically</li>
+          <li>Full audit trail of every approval decision</li>
+        </ul>
+        <a href="https://docs.skimpyclaw.xyz/guide/exec-approval.html" class="feature-link">
+          See approval tiers
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="feature-visual">
+        <div class="screenshot-card">
+          <div class="card-topbar">
+            <span class="card-dot"></span>
+            <span class="card-dot"></span>
+            <span class="card-dot"></span>
+          </div>
+          <img src="images/approvals.png" alt="Command approval queue with risk tiers and approve or deny actions" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature 4: Usage & Cost Visibility -->
+  <section class="feature-section" id="usage">
+    <div class="container reveal">
+      <div class="feature-content">
+        <span class="feature-label yellow">Observability</span>
+        <h2>Usage &amp; cost visibility</h2>
+        <p>
+          Track every token, every API call, every dollar. Usage summaries and per-model cost breakdowns in the dashboard — so you always know what your AI assistant is spending.
+        </p>
+        <ul>
+          <li>Token and cost tracking per request</li>
+          <li>Usage summary and records in the dashboard</li>
+          <li>Per-model cost data via Langfuse integration</li>
+          <li>Browseable usage records with API access</li>
+        </ul>
+        <a href="https://docs.skimpyclaw.xyz/guide/dashboard.html#usage" class="feature-link">
+          Explore usage tracking
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="feature-visual">
+        <div class="screenshot-card">
+          <div class="card-topbar">
+            <span class="card-dot"></span>
+            <span class="card-dot"></span>
+            <span class="card-dot"></span>
+          </div>
+          <img src="images/usage.png" alt="SkimpyClaw usage dashboard with costs, model breakdown, and recent calls" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature 5: BYO Model -->
+  <section class="feature-section" id="byo-model">
+    <div class="container reveal">
+      <div class="feature-content">
+        <span class="feature-label blue">Flexibility</span>
+        <h2>Bring your own model</h2>
+        <p>
+          Not locked into one provider. Use Anthropic, OpenAI (via Codex), Kimi, MiniMax, or any OpenAI-compatible API like OpenRouter. Set model defaults per agent or override per cron job.
+        </p>
+        <ul>
+          <li>Anthropic Claude, Codex (ChatGPT), Kimi, MiniMax</li>
+          <li>Any OpenAI-compatible endpoint (e.g. OpenRouter)</li>
+          <li>Model aliases and prompt caching</li>
+          <li>Per-agent and per-cron-job model overrides</li>
+        </ul>
+        <a href="https://docs.skimpyclaw.xyz/guide/configuration.html#models" class="feature-link">
+          Configure providers
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="feature-visual">
+        <div class="screenshot-card">
+          <div class="card-topbar">
+            <span class="card-dot"></span>
+            <span class="card-dot"></span>
+            <span class="card-dot"></span>
+          </div>
+          <img src="images/models.png" alt="SkimpyClaw model configuration showing multi-provider setup and model aliases" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature 6: Skills System -->
+  <section class="feature-section" id="skills">
+    <div class="container reveal">
+      <div class="feature-content">
+        <span class="feature-label purple">Extensibility</span>
+        <h2>Extensible skills system</h2>
+        <p>
+          Write skills as simple markdown files with trigger patterns. Skills can invoke bash, file I/O, browser automation, MCP tools, or any combination — activated automatically when patterns match.
+        </p>
+        <ul>
+          <li>Trigger-based activation from chat context</li>
+          <li>File I/O, bash, and browser automation built in</li>
+          <li>MCP tool integration via mcporter</li>
+          <li>Per-skill enable/disable and eligibility checks</li>
+        </ul>
+        <a href="https://docs.skimpyclaw.xyz/guide/skills.html" class="feature-link">
+          Build a skill
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="feature-visual">
+        <div class="screenshot-card">
+          <div class="card-topbar">
+            <span class="card-dot"></span>
+            <span class="card-dot"></span>
+            <span class="card-dot"></span>
+          </div>
+          <img src="images/skills.png" alt="SkimpyClaw skills system showing trigger patterns and tool integrations" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature 7: Scheduled Jobs / Cron -->
+  <section class="feature-section" id="cron">
+    <div class="container reveal">
+      <div class="feature-content">
+        <span class="feature-label yellow">Automation</span>
+        <h2>Scheduled jobs &amp; cron</h2>
+        <p>
+          Run agent prompts or shell scripts on any schedule. Morning digests, nightly backups, and weekly reports are configured in cron and can be triggered on demand from the dashboard.
+        </p>
+        <ul>
+          <li>Standard cron syntax with timezone support</li>
+          <li>Agent prompts or raw shell scripts</li>
+          <li>Trigger on-demand runs from the dashboard</li>
+          <li>Execution logs and digest output tracking</li>
+        </ul>
+        <a href="https://docs.skimpyclaw.xyz/guide/configuration.html#cron-jobs" class="feature-link">
+          Set up schedules
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="feature-visual">
+        <div class="screenshot-card">
+          <div class="card-topbar">
+            <span class="card-dot"></span>
+            <span class="card-dot"></span>
+            <span class="card-dot"></span>
+          </div>
+          <img src="images/cron.png" alt="SkimpyClaw scheduled jobs dashboard showing cron configuration and execution history" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Start -->
+  <section class="quickstart" id="quickstart">
+    <div class="container reveal">
+      <h2>Get running in 30 seconds</h2>
+      <p>Install globally, onboard, and start the daemon.</p>
       <div class="code-block">
         <code>
-          <span class="cmd">pnpm add -g</span> skimpyclaw<br>
-          <span class="cmd">skimpyclaw onboard</span><br>
-          <span class="cmd">skimpyclaw start --daemon</span>
+          <span class="prompt">$ </span><span class="cmd">pnpm add -g</span> <span class="arg">skimpyclaw</span><br>
+          <span class="prompt">$ </span><span class="cmd">skimpyclaw onboard</span><br>
+          <span class="prompt">$ </span><span class="cmd">skimpyclaw start</span> <span class="flag">--daemon</span>
         </code>
       </div>
-      <a href="https://docs.skimpyclaw.xyz/guide/setup-guide.html" class="btn btn-brand" style="margin-top: 24px;">Setup Guide</a>
+      <a href="https://docs.skimpyclaw.xyz/guide/setup-guide.html" class="btn btn-brand">
+        Full Setup Guide
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer>
     <div class="footer-links">
       <a href="https://docs.skimpyclaw.xyz">Documentation</a>
@@ -486,5 +338,6 @@
     <p class="footer-copy">Copyright &copy; 2026 SkimpyClaw</p>
   </footer>
 
+  <script src="main.js"></script>
 </body>
 </html>
