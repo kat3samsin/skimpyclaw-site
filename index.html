@@ -42,7 +42,7 @@
       Your AI assistant,<br><span class="gradient">fully under your control.</span>
     </h1>
     <p class="hero-tagline">
-      Lightweight personal AI assistant (~23k LOC). Chat via Telegram or Discord, run coding agent teams, schedule jobs, approve risky commands — all from one tiny self-hosted service.
+      Lightweight personal AI assistant (~23k LOC). Chat via Telegram or Discord, run coding agent teams, schedule jobs, sandbox commands in containers, approve risky actions — all from one tiny self-hosted service.
     </p>
     <div class="hero-actions">
       <a href="https://docs.skimpyclaw.xyz/guide/" class="btn btn-brand">
@@ -144,20 +144,55 @@
     </div>
   </section>
 
-  <!-- Feature 3: Human Approvals -->
+  <!-- Feature 3: Sandbox Isolation -->
+  <section class="feature-section" id="sandbox">
+    <div class="container reveal">
+      <div class="feature-content">
+        <span class="feature-label red">Isolation</span>
+        <h2>Container sandbox for every tool call</h2>
+        <p>
+          Run agent commands in isolated containers instead of on your host. Bash, file reads, writes, and directory listings all execute inside a sandboxed environment — the agent can install packages and run scripts without risk to your machine.
+        </p>
+        <ul>
+          <li>Apple Containers (macOS 26+) or Docker</li>
+          <li>Bash, Read, Write, Glob, and ListDir all sandboxed</li>
+          <li>Automatic host ↔ container path translation</li>
+          <li>macOS commands (osascript, open, say) bypass to host</li>
+          <li>One command setup: <code>skimpyclaw sandbox init</code></li>
+        </ul>
+        <a href="https://docs.skimpyclaw.xyz/guide/sandbox.html" class="feature-link">
+          Learn about sandboxing
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="feature-visual">
+        <div class="screenshot-card">
+          <div class="card-topbar">
+            <span class="card-dot"></span>
+            <span class="card-dot"></span>
+            <span class="card-dot"></span>
+          </div>
+          <img src="images/approvals.png" alt="SkimpyClaw sandbox and security controls" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature 4: Human Approvals -->
   <section class="feature-section" id="approvals">
     <div class="container reveal">
       <div class="feature-content">
         <span class="feature-label red">Security</span>
         <h2>Human approvals for risky commands</h2>
         <p>
-          Tier-based risk classification for every bash command. Low-risk commands run automatically. Dangerous ones require explicit human approval via Telegram or Discord before execution.
+          Tier-based risk classification for every bash command. Low-risk commands run automatically. Dangerous ones require explicit human approval via Telegram or Discord before execution — even inside the sandbox.
         </p>
         <ul>
           <li>Three-tier risk classification (informational, approval-required, dangerous)</li>
           <li>Approve or deny commands from Telegram or Discord</li>
           <li>Configurable TTL — unanswered approvals expire automatically</li>
           <li>Full audit trail of every approval decision</li>
+          <li>Works with sandbox — approval happens before container execution</li>
         </ul>
         <a href="https://docs.skimpyclaw.xyz/guide/exec-approval.html" class="feature-link">
           See approval tiers
