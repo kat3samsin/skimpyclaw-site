@@ -1,378 +1,596 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SkimpyClaw — Personal AI Assistant</title>
-  <meta name="description" content="Lightweight personal AI assistant (~23k LOC). Runs locally. Telegram, Discord, scheduled tasks, coding agent teams, and a web dashboard — all in one tiny service.">
-  <meta name="theme-color" content="#d33b36">
-  <meta property="og:title" content="SkimpyClaw">
-  <meta property="og:description" content="Lightweight personal AI assistant. Runs locally.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://skimpyclaw.xyz">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👙</text></svg>">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkimpyClaw — Personal AI Assistant</title>
+    <meta
+      name="description"
+      content="Lightweight personal AI assistant. Runs locally. Telegram, Discord, scheduled tasks, coding agents, and a web dashboard — all in one tiny service."
+    />
+    <meta name="theme-color" content="#d33b36" />
+    <meta property="og:title" content="SkimpyClaw" />
+    <meta
+      property="og:description"
+      content="Lightweight personal AI assistant. Runs locally."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://skimpyclaw.xyz" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👙</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav>
+      <div class="nav-inner">
+        <a href="/" class="nav-brand">👙🦞 SkimpyClaw</a>
+        <div class="nav-links">
+          <a href="#auditability">Features</a>
+          <div class="nav-divider"></div>
+          <a href="https://docs.skimpyclaw.xyz">Docs</a>
+          <a href="https://github.com/kat3samsin/skimpyclaw">GitHub</a>
+        </div>
+      </div>
+    </nav>
 
-  <!-- Navigation -->
-  <nav>
-    <div class="nav-inner">
-      <a href="/" class="nav-brand">👙🦞 SkimpyClaw</a>
-      <div class="nav-links">
-        <a href="#auditability">Features</a>
-        <div class="nav-divider"></div>
-        <a href="https://docs.skimpyclaw.xyz">Docs</a>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Open Source &middot; Self-Hosted
+      </div>
+      <h1 class="hero-title">
+        Your AI assistant,<br /><span class="gradient"
+          >fully under your control.</span
+        >
+      </h1>
+      <p class="hero-tagline">
+        Lightweight personal AI assistant. Chat via Telegram or Discord,
+        delegate coding tasks to Claude / Codex / Kimi CLIs, schedule jobs,
+        sandbox commands in containers, approve risky actions — all from one
+        tiny self-hosted service.
+      </p>
+      <div class="hero-actions">
+        <a href="https://docs.skimpyclaw.xyz/guide/" class="btn btn-brand">
+          Get Started
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </a>
+        <a href="https://docs.skimpyclaw.xyz" class="btn btn-ghost">
+          View Docs
+        </a>
+        <a
+          href="https://github.com/kat3samsin/skimpyclaw"
+          class="btn btn-ghost"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+            />
+          </svg>
+          GitHub
+        </a>
+      </div>
+      <div class="hero-meta">
+        <span>~23k lines of TypeScript</span>
+        <span>Self-hosted</span>
+        <span>MIT License</span>
+      </div>
+    </section>
+
+    <!-- Dashboard Screenshot -->
+    <section class="screenshot-section">
+      <div class="screenshot-container reveal">
+        <div class="screenshot-frame">
+          <div class="screenshot-topbar">
+            <span class="screenshot-dot"></span>
+            <span class="screenshot-dot"></span>
+            <span class="screenshot-dot"></span>
+          </div>
+          <img
+            src="images/dashboard.png"
+            alt="SkimpyClaw Web Dashboard"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature 1: Full Auditability -->
+    <section class="feature-section" id="auditability">
+      <div class="container reveal">
+        <div class="feature-content">
+          <span class="feature-label green">Auditability</span>
+          <h2>Full auditability for every action</h2>
+          <p>
+            Every tool call, LLM request, approval decision, and cron execution
+            is logged with timestamps, token counts, and cost data. Nothing
+            happens in the dark.
+          </p>
+          <ul>
+            <li>JSONL-based audit traces for all agent interactions</li>
+            <li>Token counts and cost data per request</li>
+            <li>Searchable audit page with trigger badges and pagination</li>
+            <li>Optional Langfuse tracing for deeper observability</li>
+          </ul>
+          <a
+            href="https://docs.skimpyclaw.xyz/guide/dashboard.html"
+            class="feature-link"
+          >
+            Read the audit docs
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+        </div>
+        <div class="feature-visual">
+          <div class="screenshot-card">
+            <div class="card-topbar">
+              <span class="card-dot"></span>
+              <span class="card-dot"></span>
+              <span class="card-dot"></span>
+            </div>
+            <img
+              src="images/audit.png"
+              alt="SkimpyClaw dashboard showing audit logs, tool calls, and cost tracking"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature 2: Coding Agents -->
+    <section class="feature-section" id="coding-agents">
+      <div class="container reveal">
+        <div class="feature-content">
+          <span class="feature-label orange">Coding Agents</span>
+          <h2>Delegate coding tasks to your favorite CLI</h2>
+          <p>
+            Hand a task off to Claude Code, Codex, or Kimi — SkimpyClaw spawns
+            the CLI, streams live output back to chat, and runs build / test
+            validation before reporting. Discord threads can hold bidirectional
+            interactive sessions that `--resume` the same Claude process across
+            follow-ups.
+          </p>
+          <ul>
+            <li>Claude Code, Codex, or Kimi as worker CLIs</li>
+            <li>Monorepo-aware validation scoped to changed packages</li>
+            <li>Live stdout streaming and cost / token tracking</li>
+            <li>Bidirectional interactive sessions in Discord threads</li>
+          </ul>
+          <a
+            href="https://docs.skimpyclaw.xyz/guide/coding-agents.html"
+            class="feature-link"
+          >
+            Learn about coding agents
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+        </div>
+        <div class="feature-visual">
+          <div class="screenshot-card">
+            <div class="card-topbar">
+              <span class="card-dot"></span>
+              <span class="card-dot"></span>
+              <span class="card-dot"></span>
+            </div>
+            <img
+              src="images/coding-agent.png"
+              alt="SkimpyClaw coding agent dashboard screenshot showing live task output and validation results"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature 3: Sandbox Isolation -->
+    <section class="feature-section" id="sandbox">
+      <div class="container reveal">
+        <div class="feature-content">
+          <span class="feature-label red">Isolation</span>
+          <h2>Container sandbox for every tool call</h2>
+          <p>
+            Run agent commands in isolated containers instead of on your host.
+            Bash, file reads, writes, and directory listings all execute inside
+            a sandboxed environment — the agent can install packages and run
+            scripts without risk to your machine.
+          </p>
+          <ul>
+            <li>Apple Containers (macOS 26+) or Docker</li>
+            <li>Bash, Read, Write, Glob, and ListDir all sandboxed</li>
+            <li>Automatic host ↔ container path translation</li>
+            <li>macOS commands (osascript, open, say) bypass to host</li>
+            <li>One command setup: <code>skimpyclaw sandbox init</code></li>
+          </ul>
+          <a
+            href="https://docs.skimpyclaw.xyz/guide/sandbox.html"
+            class="feature-link"
+          >
+            Learn about sandboxing
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+        </div>
+        <div class="feature-visual">
+          <div class="screenshot-card">
+            <div class="card-topbar">
+              <span class="card-dot"></span>
+              <span class="card-dot"></span>
+              <span class="card-dot"></span>
+            </div>
+            <img
+              src="images/approvals.png"
+              alt="SkimpyClaw sandbox and security controls"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature 4: Human Approvals -->
+    <section class="feature-section" id="approvals">
+      <div class="container reveal">
+        <div class="feature-content">
+          <span class="feature-label red">Security</span>
+          <h2>Human approvals for risky commands</h2>
+          <p>
+            Tier-based risk classification for every bash command. Low-risk
+            commands run automatically. Dangerous ones require explicit human
+            approval via Telegram or Discord before execution — even inside the
+            sandbox.
+          </p>
+          <ul>
+            <li>
+              Three-tier risk classification (informational, approval-required,
+              dangerous)
+            </li>
+            <li>Approve or deny commands from Telegram or Discord</li>
+            <li>
+              Configurable TTL — unanswered approvals expire automatically
+            </li>
+            <li>Full audit trail of every approval decision</li>
+            <li>
+              Works with sandbox — approval happens before container execution
+            </li>
+          </ul>
+          <a
+            href="https://docs.skimpyclaw.xyz/guide/exec-approval.html"
+            class="feature-link"
+          >
+            See approval tiers
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+        </div>
+        <div class="feature-visual">
+          <div class="screenshot-card">
+            <div class="card-topbar">
+              <span class="card-dot"></span>
+              <span class="card-dot"></span>
+              <span class="card-dot"></span>
+            </div>
+            <img
+              src="images/approvals.png"
+              alt="Command approval queue with risk tiers and approve or deny actions"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature 4: Usage & Cost Visibility -->
+    <section class="feature-section" id="usage">
+      <div class="container reveal">
+        <div class="feature-content">
+          <span class="feature-label yellow">Observability</span>
+          <h2>Usage &amp; cost visibility</h2>
+          <p>
+            Track every token, every API call, every dollar. Usage summaries and
+            per-model cost breakdowns in the dashboard — so you always know what
+            your AI assistant is spending.
+          </p>
+          <ul>
+            <li>Token and cost tracking per request</li>
+            <li>Usage summary and records in the dashboard</li>
+            <li>Per-model cost data via Langfuse integration</li>
+            <li>Browseable usage records with API access</li>
+          </ul>
+          <a
+            href="https://docs.skimpyclaw.xyz/guide/dashboard.html#usage"
+            class="feature-link"
+          >
+            Explore usage tracking
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+        </div>
+        <div class="feature-visual">
+          <div class="screenshot-card">
+            <div class="card-topbar">
+              <span class="card-dot"></span>
+              <span class="card-dot"></span>
+              <span class="card-dot"></span>
+            </div>
+            <img
+              src="images/usage.png"
+              alt="SkimpyClaw usage dashboard with costs, model breakdown, and recent calls"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature 5: BYO Model -->
+    <section class="feature-section" id="byo-model">
+      <div class="container reveal">
+        <div class="feature-content">
+          <span class="feature-label blue">Flexibility</span>
+          <h2>Bring your own model</h2>
+          <p>
+            Not locked into one provider. Use Anthropic, OpenAI (via Codex),
+            Kimi, MiniMax, or any OpenAI-compatible API like OpenRouter. Set
+            model defaults per agent or override per cron job.
+          </p>
+          <ul>
+            <li>Anthropic Claude, Codex (ChatGPT), Kimi, MiniMax</li>
+            <li>Any OpenAI-compatible endpoint (e.g. OpenRouter)</li>
+            <li>Model aliases and prompt caching</li>
+            <li>Per-agent and per-cron-job model overrides</li>
+          </ul>
+          <a
+            href="https://docs.skimpyclaw.xyz/guide/configuration.html#models"
+            class="feature-link"
+          >
+            Configure providers
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+        </div>
+        <div class="feature-visual">
+          <div class="screenshot-card">
+            <div class="card-topbar">
+              <span class="card-dot"></span>
+              <span class="card-dot"></span>
+              <span class="card-dot"></span>
+            </div>
+            <img
+              src="images/models.png"
+              alt="SkimpyClaw model configuration showing multi-provider setup and model aliases"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature 6: Skills System -->
+    <section class="feature-section" id="skills">
+      <div class="container reveal">
+        <div class="feature-content">
+          <span class="feature-label purple">Extensibility</span>
+          <h2>Extensible skills system</h2>
+          <p>
+            Write skills as simple markdown files with trigger patterns. Skills
+            can invoke bash, file I/O, browser automation, MCP tools, or any
+            combination — activated automatically when patterns match.
+          </p>
+          <ul>
+            <li>Trigger-based activation from chat context</li>
+            <li>File I/O, bash, and browser automation built in</li>
+            <li>MCP tool integration via mcporter</li>
+            <li>Per-skill enable/disable and eligibility checks</li>
+          </ul>
+          <a
+            href="https://docs.skimpyclaw.xyz/guide/skills.html"
+            class="feature-link"
+          >
+            Build a skill
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+        </div>
+        <div class="feature-visual">
+          <div class="screenshot-card">
+            <div class="card-topbar">
+              <span class="card-dot"></span>
+              <span class="card-dot"></span>
+              <span class="card-dot"></span>
+            </div>
+            <img
+              src="images/skills.png"
+              alt="SkimpyClaw skills system showing trigger patterns and tool integrations"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature 7: Scheduled Jobs / Cron -->
+    <section class="feature-section" id="cron">
+      <div class="container reveal">
+        <div class="feature-content">
+          <span class="feature-label yellow">Automation</span>
+          <h2>Scheduled jobs &amp; cron</h2>
+          <p>
+            Run agent prompts or shell scripts on any schedule. Morning digests,
+            nightly backups, and weekly reports are configured in cron and can
+            be triggered on demand from the dashboard.
+          </p>
+          <ul>
+            <li>Standard cron syntax with timezone support</li>
+            <li>Agent prompts or raw shell scripts</li>
+            <li>Trigger on-demand runs from the dashboard</li>
+            <li>Execution logs and digest output tracking</li>
+          </ul>
+          <a
+            href="https://docs.skimpyclaw.xyz/guide/configuration.html#cron-jobs"
+            class="feature-link"
+          >
+            Set up schedules
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+        </div>
+        <div class="feature-visual">
+          <div class="screenshot-card">
+            <div class="card-topbar">
+              <span class="card-dot"></span>
+              <span class="card-dot"></span>
+              <span class="card-dot"></span>
+            </div>
+            <img
+              src="images/cron.png"
+              alt="SkimpyClaw scheduled jobs dashboard showing cron configuration and execution history"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Start -->
+    <section class="quickstart" id="quickstart">
+      <div class="container reveal">
+        <h2>Get running in 30 seconds</h2>
+        <p>Install globally, onboard, and start the daemon.</p>
+        <div class="code-block">
+          <code>
+            <span class="prompt">$ </span><span class="cmd">pnpm add -g</span>
+            <span class="arg">skimpyclaw</span><br />
+            <span class="prompt">$ </span
+            ><span class="cmd">skimpyclaw onboard</span><br />
+            <span class="prompt">$ </span
+            ><span class="cmd">skimpyclaw start</span>
+            <span class="flag">--daemon</span>
+          </code>
+        </div>
+        <a
+          href="https://docs.skimpyclaw.xyz/guide/setup-guide.html"
+          class="btn btn-brand"
+        >
+          Full Setup Guide
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-links">
+        <a href="https://docs.skimpyclaw.xyz">Documentation</a>
         <a href="https://github.com/kat3samsin/skimpyclaw">GitHub</a>
+        <a href="https://docs.skimpyclaw.xyz/api/">API Reference</a>
       </div>
-    </div>
-  </nav>
+      <p class="footer-copy">Copyright &copy; 2026 SkimpyClaw</p>
+    </footer>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-badge">
-      <span class="dot"></span>
-      Open Source &middot; Self-Hosted
-    </div>
-    <h1 class="hero-title">
-      Your AI assistant,<br><span class="gradient">fully under your control.</span>
-    </h1>
-    <p class="hero-tagline">
-      Lightweight personal AI assistant (~23k LOC). Chat via Telegram or Discord, run coding agent teams, schedule jobs, sandbox commands in containers, approve risky actions — all from one tiny self-hosted service.
-    </p>
-    <div class="hero-actions">
-      <a href="https://docs.skimpyclaw.xyz/guide/" class="btn btn-brand">
-        Get Started
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-      <a href="https://docs.skimpyclaw.xyz" class="btn btn-ghost">
-        View Docs
-      </a>
-      <a href="https://github.com/kat3samsin/skimpyclaw" class="btn btn-ghost">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-        GitHub
-      </a>
-    </div>
-    <div class="hero-meta">
-      <span>~23k lines of TypeScript</span>
-      <span>Self-hosted</span>
-      <span>MIT License</span>
-    </div>
-  </section>
-
-  <!-- Dashboard Screenshot -->
-  <section class="screenshot-section">
-    <div class="screenshot-container reveal">
-      <div class="screenshot-frame">
-        <div class="screenshot-topbar">
-          <span class="screenshot-dot"></span>
-          <span class="screenshot-dot"></span>
-          <span class="screenshot-dot"></span>
-        </div>
-        <img src="images/dashboard.png" alt="SkimpyClaw Web Dashboard" loading="lazy">
-      </div>
-    </div>
-  </section>
-
-  <!-- Feature 1: Full Auditability -->
-  <section class="feature-section" id="auditability">
-    <div class="container reveal">
-      <div class="feature-content">
-        <span class="feature-label green">Auditability</span>
-        <h2>Full auditability for every action</h2>
-        <p>
-          Every tool call, LLM request, approval decision, and cron execution is logged with timestamps, token counts, and cost data. Nothing happens in the dark.
-        </p>
-        <ul>
-          <li>JSONL-based audit traces for all agent interactions</li>
-          <li>Token counts and cost data per request</li>
-          <li>Searchable audit page with trigger badges and pagination</li>
-          <li>Optional Langfuse tracing for deeper observability</li>
-        </ul>
-        <a href="https://docs.skimpyclaw.xyz/guide/dashboard.html" class="feature-link">
-          Read the audit docs
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-      <div class="feature-visual">
-        <div class="screenshot-card">
-          <div class="card-topbar">
-            <span class="card-dot"></span>
-            <span class="card-dot"></span>
-            <span class="card-dot"></span>
-          </div>
-          <img src="images/dashboard.png" alt="SkimpyClaw dashboard showing audit logs, tool calls, and cost tracking" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Feature 2: Coding Agent Teams -->
-  <section class="feature-section" id="coding-agents">
-    <div class="container reveal">
-      <div class="feature-content">
-        <span class="feature-label orange">Coding Agents</span>
-        <h2>Spawn parallel coding agent teams</h2>
-        <p>
-          Decompose tasks across multiple AI coding agents — Claude, Codex, Kimi — that work in parallel. Each agent writes code, runs tests, and reports back through structured validation gates.
-        </p>
-        <ul>
-          <li>Multi-model agent orchestration</li>
-          <li>Parallel task decomposition and execution</li>
-          <li>Built-in validation gates and test runners</li>
-          <li>Git branch isolation per agent</li>
-        </ul>
-        <a href="https://docs.skimpyclaw.xyz/guide/coding-agents.html" class="feature-link">
-          Learn about agent teams
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-      <div class="feature-visual">
-        <div class="screenshot-card">
-          <div class="card-topbar">
-            <span class="card-dot"></span>
-            <span class="card-dot"></span>
-            <span class="card-dot"></span>
-          </div>
-          <img src="images/coding-agent.png" alt="SkimpyClaw coding agent dashboard screenshot showing parallel task orchestration and validation results" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Feature 3: Sandbox Isolation -->
-  <section class="feature-section" id="sandbox">
-    <div class="container reveal">
-      <div class="feature-content">
-        <span class="feature-label red">Isolation</span>
-        <h2>Container sandbox for every tool call</h2>
-        <p>
-          Run agent commands in isolated containers instead of on your host. Bash, file reads, writes, and directory listings all execute inside a sandboxed environment — the agent can install packages and run scripts without risk to your machine.
-        </p>
-        <ul>
-          <li>Apple Containers (macOS 26+) or Docker</li>
-          <li>Bash, Read, Write, Glob, and ListDir all sandboxed</li>
-          <li>Automatic host ↔ container path translation</li>
-          <li>macOS commands (osascript, open, say) bypass to host</li>
-          <li>One command setup: <code>skimpyclaw sandbox init</code></li>
-        </ul>
-        <a href="https://docs.skimpyclaw.xyz/guide/sandbox.html" class="feature-link">
-          Learn about sandboxing
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-      <div class="feature-visual">
-        <div class="screenshot-card">
-          <div class="card-topbar">
-            <span class="card-dot"></span>
-            <span class="card-dot"></span>
-            <span class="card-dot"></span>
-          </div>
-          <img src="images/approvals.png" alt="SkimpyClaw sandbox and security controls" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Feature 4: Human Approvals -->
-  <section class="feature-section" id="approvals">
-    <div class="container reveal">
-      <div class="feature-content">
-        <span class="feature-label red">Security</span>
-        <h2>Human approvals for risky commands</h2>
-        <p>
-          Tier-based risk classification for every bash command. Low-risk commands run automatically. Dangerous ones require explicit human approval via Telegram or Discord before execution — even inside the sandbox.
-        </p>
-        <ul>
-          <li>Three-tier risk classification (informational, approval-required, dangerous)</li>
-          <li>Approve or deny commands from Telegram or Discord</li>
-          <li>Configurable TTL — unanswered approvals expire automatically</li>
-          <li>Full audit trail of every approval decision</li>
-          <li>Works with sandbox — approval happens before container execution</li>
-        </ul>
-        <a href="https://docs.skimpyclaw.xyz/guide/exec-approval.html" class="feature-link">
-          See approval tiers
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-      <div class="feature-visual">
-        <div class="screenshot-card">
-          <div class="card-topbar">
-            <span class="card-dot"></span>
-            <span class="card-dot"></span>
-            <span class="card-dot"></span>
-          </div>
-          <img src="images/approvals.png" alt="Command approval queue with risk tiers and approve or deny actions" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Feature 4: Usage & Cost Visibility -->
-  <section class="feature-section" id="usage">
-    <div class="container reveal">
-      <div class="feature-content">
-        <span class="feature-label yellow">Observability</span>
-        <h2>Usage &amp; cost visibility</h2>
-        <p>
-          Track every token, every API call, every dollar. Usage summaries and per-model cost breakdowns in the dashboard — so you always know what your AI assistant is spending.
-        </p>
-        <ul>
-          <li>Token and cost tracking per request</li>
-          <li>Usage summary and records in the dashboard</li>
-          <li>Per-model cost data via Langfuse integration</li>
-          <li>Browseable usage records with API access</li>
-        </ul>
-        <a href="https://docs.skimpyclaw.xyz/guide/dashboard.html#usage" class="feature-link">
-          Explore usage tracking
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-      <div class="feature-visual">
-        <div class="screenshot-card">
-          <div class="card-topbar">
-            <span class="card-dot"></span>
-            <span class="card-dot"></span>
-            <span class="card-dot"></span>
-          </div>
-          <img src="images/usage.png" alt="SkimpyClaw usage dashboard with costs, model breakdown, and recent calls" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Feature 5: BYO Model -->
-  <section class="feature-section" id="byo-model">
-    <div class="container reveal">
-      <div class="feature-content">
-        <span class="feature-label blue">Flexibility</span>
-        <h2>Bring your own model</h2>
-        <p>
-          Not locked into one provider. Use Anthropic, OpenAI (via Codex), Kimi, MiniMax, or any OpenAI-compatible API like OpenRouter. Set model defaults per agent or override per cron job.
-        </p>
-        <ul>
-          <li>Anthropic Claude, Codex (ChatGPT), Kimi, MiniMax</li>
-          <li>Any OpenAI-compatible endpoint (e.g. OpenRouter)</li>
-          <li>Model aliases and prompt caching</li>
-          <li>Per-agent and per-cron-job model overrides</li>
-        </ul>
-        <a href="https://docs.skimpyclaw.xyz/guide/configuration.html#models" class="feature-link">
-          Configure providers
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-      <div class="feature-visual">
-        <div class="screenshot-card">
-          <div class="card-topbar">
-            <span class="card-dot"></span>
-            <span class="card-dot"></span>
-            <span class="card-dot"></span>
-          </div>
-          <img src="images/models.png" alt="SkimpyClaw model configuration showing multi-provider setup and model aliases" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Feature 6: Skills System -->
-  <section class="feature-section" id="skills">
-    <div class="container reveal">
-      <div class="feature-content">
-        <span class="feature-label purple">Extensibility</span>
-        <h2>Extensible skills system</h2>
-        <p>
-          Write skills as simple markdown files with trigger patterns. Skills can invoke bash, file I/O, browser automation, MCP tools, or any combination — activated automatically when patterns match.
-        </p>
-        <ul>
-          <li>Trigger-based activation from chat context</li>
-          <li>File I/O, bash, and browser automation built in</li>
-          <li>MCP tool integration via mcporter</li>
-          <li>Per-skill enable/disable and eligibility checks</li>
-        </ul>
-        <a href="https://docs.skimpyclaw.xyz/guide/skills.html" class="feature-link">
-          Build a skill
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-      <div class="feature-visual">
-        <div class="screenshot-card">
-          <div class="card-topbar">
-            <span class="card-dot"></span>
-            <span class="card-dot"></span>
-            <span class="card-dot"></span>
-          </div>
-          <img src="images/skills.png" alt="SkimpyClaw skills system showing trigger patterns and tool integrations" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Feature 7: Scheduled Jobs / Cron -->
-  <section class="feature-section" id="cron">
-    <div class="container reveal">
-      <div class="feature-content">
-        <span class="feature-label yellow">Automation</span>
-        <h2>Scheduled jobs &amp; cron</h2>
-        <p>
-          Run agent prompts or shell scripts on any schedule. Morning digests, nightly backups, and weekly reports are configured in cron and can be triggered on demand from the dashboard.
-        </p>
-        <ul>
-          <li>Standard cron syntax with timezone support</li>
-          <li>Agent prompts or raw shell scripts</li>
-          <li>Trigger on-demand runs from the dashboard</li>
-          <li>Execution logs and digest output tracking</li>
-        </ul>
-        <a href="https://docs.skimpyclaw.xyz/guide/configuration.html#cron-jobs" class="feature-link">
-          Set up schedules
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-      <div class="feature-visual">
-        <div class="screenshot-card">
-          <div class="card-topbar">
-            <span class="card-dot"></span>
-            <span class="card-dot"></span>
-            <span class="card-dot"></span>
-          </div>
-          <img src="images/cron.png" alt="SkimpyClaw scheduled jobs dashboard showing cron configuration and execution history" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Quick Start -->
-  <section class="quickstart" id="quickstart">
-    <div class="container reveal">
-      <h2>Get running in 30 seconds</h2>
-      <p>Install globally, onboard, and start the daemon.</p>
-      <div class="code-block">
-        <code>
-          <span class="prompt">$ </span><span class="cmd">pnpm add -g</span> <span class="arg">skimpyclaw</span><br>
-          <span class="prompt">$ </span><span class="cmd">skimpyclaw onboard</span><br>
-          <span class="prompt">$ </span><span class="cmd">skimpyclaw start</span> <span class="flag">--daemon</span>
-        </code>
-      </div>
-      <a href="https://docs.skimpyclaw.xyz/guide/setup-guide.html" class="btn btn-brand">
-        Full Setup Guide
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-links">
-      <a href="https://docs.skimpyclaw.xyz">Documentation</a>
-      <a href="https://github.com/kat3samsin/skimpyclaw">GitHub</a>
-      <a href="https://docs.skimpyclaw.xyz/api/">API Reference</a>
-    </div>
-    <p class="footer-copy">Copyright &copy; 2026 SkimpyClaw</p>
-  </footer>
-
-  <script src="main.js"></script>
-</body>
+    <script src="main.js"></script>
+  </body>
 </html>
