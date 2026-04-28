@@ -6,13 +6,13 @@
     <title>SkimpyClaw — Personal AI Assistant</title>
     <meta
       name="description"
-      content="Lightweight personal AI assistant. Runs locally. Telegram, Discord, scheduled tasks, coding agents, and a web dashboard — all in one tiny service."
+      content="Lightweight personal AI assistant. Runs locally. Telegram, Discord, configurable agents, scheduled tasks, coding agents, and a web dashboard — all in one tiny service."
     />
     <meta name="theme-color" content="#d33b36" />
     <meta property="og:title" content="SkimpyClaw" />
     <meta
       property="og:description"
-      content="Lightweight personal AI assistant. Runs locally."
+      content="Lightweight personal AI assistant with Telegram, Discord, configurable agents, coding agents, cron, and a dashboard."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://skimpyclaw.xyz" />
@@ -58,8 +58,9 @@
       </h1>
       <p class="hero-tagline">
         Lightweight personal AI assistant. Chat via Telegram or Discord,
-        delegate coding tasks to Claude / Codex / Kimi CLIs, schedule jobs,
-        approve risky actions — all from one tiny self-hosted service.
+        invoke configured agents, delegate coding tasks to Claude / Codex
+        / Kimi CLIs, schedule jobs, approve risky actions — all from one tiny
+        self-hosted service.
       </p>
       <div class="hero-actions">
         <a href="https://docs.skimpyclaw.xyz/guide/" class="btn btn-brand">
@@ -178,14 +179,14 @@
             Hand a task off to Claude Code, Codex, or Kimi — SkimpyClaw spawns
             the CLI, streams live output back to chat, and runs build / test
             validation before reporting. Discord threads can hold bidirectional
-            interactive sessions that `--resume` the same Claude process across
+            interactive Claude sessions that `--resume` the same process across
             follow-ups.
           </p>
           <ul>
             <li>Claude Code, Codex, or Kimi as worker CLIs</li>
             <li>Monorepo-aware validation scoped to changed packages</li>
             <li>Live stdout streaming and cost / token tracking</li>
-            <li>Bidirectional interactive sessions in Discord threads</li>
+            <li>Bidirectional Claude sessions in Discord threads</li>
           </ul>
           <a
             href="https://docs.skimpyclaw.xyz/guide/coding-agents.html"
@@ -222,7 +223,67 @@
       </div>
     </section>
 
-    <!-- Feature 3: Human Approvals -->
+    <!-- Feature 3: Agents -->
+    <section class="feature-section" id="agents">
+      <div class="container reveal">
+        <div class="feature-content">
+          <span class="feature-label blue">Agents</span>
+          <h2>Configured agents with Discord shortcuts</h2>
+          <p>
+            Define multiple SkimpyClaw agents with their own identity, prompts,
+            model, effort, and memory. Discord profiles add a channel-specific
+            shortcut: invoke @reviewer or @researcher, bind the profile to a
+            thread, and keep the conversation routed to that agent.
+          </p>
+          <ul>
+            <li>Config-backed agents under ~/.skimpyclaw/agents/&lt;id&gt;</li>
+            <li>Discord /agent commands for creating and listing profiles</li>
+            <li>@alias messages that create or reuse threads</li>
+            <li>Per-profile model, effort, and prompt overrides</li>
+          </ul>
+          <a
+            href="https://docs.skimpyclaw.xyz/guide/agents.html"
+            class="feature-link"
+          >
+            Configure agents
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+        </div>
+        <div class="feature-visual">
+          <div class="screenshot-card agent-profile-card">
+            <div class="card-topbar">
+              <span class="card-dot"></span>
+              <span class="card-dot"></span>
+              <span class="card-dot"></span>
+            </div>
+            <div class="agent-profile-body">
+              <div class="agent-row">
+                <span class="agent-avatar">R</span>
+                <div>
+                  <strong>@reviewer</strong>
+                  <span>main · claude-think · high</span>
+                </div>
+              </div>
+              <div class="agent-command">/agent prompt reviewer Focus on correctness issues and missing tests.</div>
+              <div class="agent-command">@reviewer review this release note before I publish</div>
+              <div class="agent-route">Thread binding: reviewer → #release-notes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature 4: Human Approvals -->
     <section class="feature-section" id="approvals">
       <div class="container reveal">
         <div class="feature-content">
@@ -279,7 +340,7 @@
       </div>
     </section>
 
-    <!-- Feature 4: Usage & Cost Visibility -->
+    <!-- Feature 5: Usage & Cost Visibility -->
     <section class="feature-section" id="usage">
       <div class="container reveal">
         <div class="feature-content">
@@ -331,7 +392,7 @@
       </div>
     </section>
 
-    <!-- Feature 5: BYO Model -->
+    <!-- Feature 6: BYO Model -->
     <section class="feature-section" id="byo-model">
       <div class="container reveal">
         <div class="feature-content">
@@ -383,7 +444,7 @@
       </div>
     </section>
 
-    <!-- Feature 6: Skills System -->
+    <!-- Feature 7: Skills System -->
     <section class="feature-section" id="skills">
       <div class="container reveal">
         <div class="feature-content">
@@ -435,7 +496,7 @@
       </div>
     </section>
 
-    <!-- Feature 7: Scheduled Jobs / Cron -->
+    <!-- Feature 8: Scheduled Jobs / Cron -->
     <section class="feature-section" id="cron">
       <div class="container reveal">
         <div class="feature-content">
