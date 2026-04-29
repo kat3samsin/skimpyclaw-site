@@ -59,7 +59,7 @@
       <p class="hero-tagline">
         Lightweight personal AI assistant. Chat via Telegram or Discord,
         invoke configured agents, delegate coding tasks to Claude / Codex
-        / Kimi CLIs, schedule jobs, approve risky actions — all from one tiny
+        CLIs, schedule jobs, approve risky actions — all from one tiny
         self-hosted service.
       </p>
       <div class="hero-actions">
@@ -176,14 +176,14 @@
           <span class="feature-label orange">Coding Agents</span>
           <h2>Delegate coding tasks to your favorite CLI</h2>
           <p>
-            Hand a task off to Claude Code, Codex, or Kimi — SkimpyClaw spawns
+            Hand a task off to Claude Code or Codex — SkimpyClaw spawns
             the CLI, streams live output back to chat, and runs build / test
             validation before reporting. Discord threads can hold bidirectional
             interactive Claude sessions that `--resume` the same process across
             follow-ups.
           </p>
           <ul>
-            <li>Claude Code, Codex, or Kimi as worker CLIs</li>
+            <li>Claude Code or Codex as worker CLIs</li>
             <li>Monorepo-aware validation scoped to changed packages</li>
             <li>Live stdout streaming and cost / token tracking</li>
             <li>Bidirectional Claude sessions in Discord threads</li>
@@ -271,12 +271,12 @@
                 <span class="agent-avatar">R</span>
                 <div>
                   <strong>@reviewer</strong>
-                  <span>main · claude-think · high</span>
+                  <span>main · anthropic/claude-opus-4-7 · high</span>
                 </div>
               </div>
               <div class="agent-command">/agent prompt reviewer Focus on correctness issues and missing tests.</div>
               <div class="agent-command">@reviewer review this release note before I publish</div>
-              <div class="agent-route">Thread binding: reviewer → #release-notes</div>
+              <div class="agent-route">Task thread: reviewer → release-note-review</div>
             </div>
           </div>
         </div>
@@ -399,14 +399,13 @@
           <span class="feature-label blue">Flexibility</span>
           <h2>Bring your own model</h2>
           <p>
-            Not locked into one provider. Use Anthropic, OpenAI (via Codex),
-            Kimi, MiniMax, or any OpenAI-compatible API like OpenRouter. Set
-            model defaults per agent or override per cron job.
+            Not locked into one runtime. Use Anthropic Claude or Codex-backed
+            models, set defaults per agent, and override models per cron job.
           </p>
           <ul>
-            <li>Anthropic Claude, Codex (ChatGPT), Kimi, MiniMax</li>
-            <li>Any OpenAI-compatible endpoint (e.g. OpenRouter)</li>
-            <li>Model aliases and prompt caching</li>
+            <li>Anthropic Claude and Codex-backed models</li>
+            <li>Exact model IDs plus focused Codex aliases</li>
+            <li>Prompt caching where the provider supports it</li>
             <li>Per-agent and per-cron-job model overrides</li>
           </ul>
           <a
@@ -452,12 +451,12 @@
           <h2>Extensible skills system</h2>
           <p>
             Write skills as simple markdown files with trigger patterns. Skills
-            can invoke bash, file I/O, browser automation, MCP tools, or any
+            can invoke bash, file I/O, Fetch, MCP tools, or any
             combination — activated automatically when patterns match.
           </p>
           <ul>
             <li>Trigger-based activation from chat context</li>
-            <li>File I/O, bash, and browser automation built in</li>
+            <li>File I/O, bash, and Fetch built in</li>
             <li>MCP tool integration via mcporter</li>
             <li>Per-skill enable/disable and eligibility checks</li>
           </ul>

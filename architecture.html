@@ -513,7 +513,7 @@
           <rect class="box tool" x="40" y="600" width="190" height="80" rx="6" />
           <text class="label-title" x="135" y="624" text-anchor="middle">Built-in Tools</text>
           <text class="label-sub" x="135" y="641" text-anchor="middle">Read · Write · Glob · Bash</text>
-          <text class="label-sub" x="135" y="655" text-anchor="middle">Fetch · Browser (Playwright)</text>
+          <text class="label-sub" x="135" y="655" text-anchor="middle">Fetch · MCP dispatch</text>
           <text class="label-src tool" x="135" y="672" text-anchor="middle">src/tools/*.ts</text>
 
           <!-- Exec Approval - security group -->
@@ -553,10 +553,10 @@
           <text class="label-title" x="640" y="740" text-anchor="middle">Codex</text>
           <text class="label-sub" x="640" y="756" text-anchor="middle">codex exec</text>
 
-          <rect class="mask" x="690" y="720" width="80" height="50" rx="6" />
-          <rect class="box coding" x="690" y="720" width="80" height="50" rx="6" />
-          <text class="label-title" x="730" y="740" text-anchor="middle">Kimi</text>
-          <text class="label-sub" x="730" y="756" text-anchor="middle">kimi --yolo</text>
+          <rect class="mask" x="690" y="720" width="110" height="50" rx="6" />
+          <rect class="box coding" x="690" y="720" width="110" height="50" rx="6" />
+          <text class="label-title" x="745" y="740" text-anchor="middle">Agent Profiles</text>
+          <text class="label-sub" x="745" y="756" text-anchor="middle">model + effort</text>
 
           <!-- ============================================================
                EXTERNAL PROVIDERS
@@ -576,9 +576,9 @@
 
           <rect class="mask" x="940" y="310" width="180" height="60" rx="6" />
           <rect class="box provider" x="940" y="310" width="180" height="60" rx="6" />
-          <text class="label-title" x="1030" y="333" text-anchor="middle">OpenAI-compatible</text>
-          <text class="label-sub" x="1030" y="349" text-anchor="middle">OpenRouter · Groq · Together…</text>
-          <text class="label-src provider" x="1030" y="363" text-anchor="middle">API key + baseURL</text>
+          <text class="label-title" x="1030" y="333" text-anchor="middle">Voice API</text>
+          <text class="label-sub" x="1030" y="349" text-anchor="middle">optional STT / TTS</text>
+          <text class="label-src provider" x="1030" y="363" text-anchor="middle">OpenAI key</text>
 
           <rect class="mask" x="940" y="410" width="180" height="60" rx="6" />
           <rect class="box provider" x="940" y="410" width="180" height="60" rx="6" />
@@ -628,7 +628,7 @@
         <ul>
           <li>Fastify gateway on <code>:18790</code> with bearer auth</li>
           <li>Agent runner with tool loop, history, and memory</li>
-          <li>Unified provider router (Anthropic / Codex / OpenAI-compat)</li>
+          <li>Unified provider router (Anthropic / Codex)</li>
           <li>Configured agents + Discord profile routing</li>
           <li>Cron scheduler + heartbeat keep-alive</li>
         </ul>
@@ -637,7 +637,7 @@
       <div class="info-card">
         <h3><span class="dot green"></span> Tools</h3>
         <ul>
-          <li>Read, Write, Glob, Bash, Fetch + Playwright browser</li>
+          <li>Read, Write, Glob, Bash, Fetch, and MCP dispatch</li>
           <li>Path-scoped to <code>allowedPaths</code> — no free filesystem access</li>
           <li>MCP tools auto-discovered via mcporter</li>
         </ul>
@@ -655,7 +655,7 @@
       <div class="info-card">
         <h3><span class="dot orange"></span> Coding Agents</h3>
         <ul>
-          <li><code>code_with_agent</code> spawns Claude, Codex, or Kimi CLI</li>
+          <li><code>code_with_agent</code> spawns Claude or Codex CLI</li>
           <li>Monorepo-aware validation scoped to changed packages</li>
           <li>Live stdout streaming + cost / token tracking</li>
           <li>Discord threads: bidirectional <code>claude --resume</code> sessions</li>
@@ -678,7 +678,7 @@
         <ul>
           <li>Anthropic (Claude Opus / Sonnet / Haiku) — OAuth or API key</li>
           <li>Codex backend via ChatGPT responses endpoint</li>
-          <li>Any OpenAI-compatible provider (OpenRouter, Groq, Together)</li>
+          <li>Optional OpenAI voice API for STT / TTS</li>
           <li>MCP servers auto-discovered via mcporter</li>
         </ul>
       </div>
